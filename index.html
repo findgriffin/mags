@@ -3,28 +3,27 @@
 <head>
 <script>
 function startTime() {
-        var today=new Date();
-            var h=today.getHours();
-                var m=today.getMinutes();
-                    var s=today.getSeconds();
-                        m = checkTime(m);
-                            s = checkTime(s);
-                                document.getElementById('txt').innerHTML =
-                                    h+":"+m+":"+s;
-                                    var t =
-                                        setTimeout(function(){startTime()},500);
+    document.getElementById('local').innerHTML = new Date().toLocaleString();
+    document.getElementById('utc').innerHTML = new Date().toUTCString();
+    document.getElementById('unix').innerHTML = new Date().getTime();
+    var t = setTimeout(function(){startTime()},100);
 }
 
 function checkTime(i) {
-        if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
-            return i;
+    if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
 }
 </script>
 </head>
 
 <body onload="startTime()">
 
-<div id="txt"></div>
+<h2>Local</h2>
+<div id="local"></div>
+<h2>UTC</h2>
+<div id="utc"></div>
+<h2>UNIX</h2>
+<div id="unix"></div>
 
 </body>
 </html>
