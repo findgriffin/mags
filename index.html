@@ -3,13 +3,24 @@
 <head>
 <script>
 function startTime() {
-    document.getElementById('local').innerHTML = new Date().toLocaleString();
-    document.getElementById('utc').innerHTML = new Date().toUTCString();
-    document.getElementById('unix').innerHTML = new Date().getTime();
+    var now = new Date();
+
+    document.getElementById('local').innerHTML = now.toLocaleString();
+    document.getElementById('pdt').innerHTML = formatDateTime(now, " PDT (Seattle)");
+    document.getElementById('utc').innerHTML = now.toUTCString();
+    document.getElementById('unix').innerHTML = now.getTime();
     var t = setTimeout(function(){startTime()},100);
 }
+function formatDateTime(dtime, timezone) {
+    return dtime.toISOString() + timezone
+}
 
-function checkTime(i) {
+function twoDigit(i) {
+    if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+
+function fourDigit(i) {
     if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
     return i;
 }
@@ -17,12 +28,14 @@ function checkTime(i) {
 </head>
 
 <body onload="startTime()">
-
-<h2>Local</h2>
+<h4>Local time</h4>
 <div id="local"></div>
-<h2>UTC</h2>
+<h4>Other timezones</h4>
+<div id="pdt"></div>
+
+<h4>UTC</h4>
 <div id="utc"></div>
-<h2>UNIX</h2>
+<h4>Unix Epoch</h4>
 <div id="unix"></div>
 
 </body>
